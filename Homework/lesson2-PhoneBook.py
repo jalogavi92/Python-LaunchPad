@@ -1,32 +1,59 @@
+# Create an empty phone book dictionary
 phone_book = {}
 
-def add_entry(name, phone_number, email):
-    phone_book[name] = {
-        'phone_number': phone_number,
-        'email': email
-    }
-    print("Entry added successfully.")
+def add_contact(name, number):
+    phone_book[name] = number
+    print(f"Contact {name} added with phone number {number}.")
 
-def remove_entry(name):
+def search_contact(name):
+    if name in phone_book:
+        print(f"{name}: {phone_book[name]}")
+    else:
+        print(f"Contact '{name}' does not exist in the phone book.")
+
+def delete_contact(name):
     if name in phone_book:
         del phone_book[name]
-        print("Entry removed successfully.")
+        print(f"Contact '{name}' deleted.")
     else:
-        print("Entry not found.")
+        print(f"Contact '{name}' does not exist in the phone book.")
 
-def lookup_entry(name):
-    if name in phone_book:
-        entry = phone_book[name]
-        print("Name:", name)
-        print("Phone Number:", entry['phone_number'])
-        print("Email:", entry['email'])
+def display_contacts():
+    if phone_book:
+        print("Phone Book:")
+        for name, number in phone_book.items():
+            print(f"{name}: {number}")
     else:
-        print("Entry not found.")
+        print("Phone Book is empty.")
 
-# Example usage
-add_entry("John Doe", "1234567890", "john.doe@example.com")
-add_entry("Jane Smith", "9876543210", "jane.smith@example.com")
+def main():
+    while True:
+        print("\nPhone Book Menu:")
+        print("1. Add Contact")
+        print("2. Search Contact")
+        print("3. Delete Contact")
+        print("4. Display Contacts")
+        print("5. Exit")
 
-lookup_entry("John Doe")
-lookup_entry("Jane Smith")
-lookup_entry("Alice")
+        choice = input("Enter your choice (1-5): ")
+
+        if choice == "1":
+            name = input("Enter contact name: ")
+            number = input("Enter phone number: ")
+            add_contact(name, number)
+        elif choice == "2":
+            name = input("Enter contact name to search: ")
+            search_contact(name)
+        elif choice == "3":
+            name = input("Enter contact name to delete: ")
+            delete_contact(name)
+        elif choice == "4":
+            display_contacts()
+        elif choice == "5":
+            print("Exiting Phone Book.")
+            break
+        else:
+            print("Invalid choice. Please select again.")
+
+if __name__ == "__main__":
+    main()
